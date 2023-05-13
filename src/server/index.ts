@@ -1,8 +1,11 @@
 import express from "express";
 import morgan from "morgan";
 import robotsRouter from "./routers/robots/robotsRouter.js";
+import { generalError, notFoundError } from "./middlewares/errorMiddlewares.js";
 
 const app = express();
+
+app.disable("x-powered-by");
 
 app.use(morgan("dev"));
 
@@ -10,8 +13,8 @@ app.use(express.json());
 
 app.use("/robots", robotsRouter);
 
-app.use((req, res) => {
-  res.status(404).json({ message: "Endpoint no found" });
-});
+app.use(notFoundError);
+
+app.use(generalError);
 
 export default app;
