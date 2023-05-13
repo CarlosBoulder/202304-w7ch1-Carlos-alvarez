@@ -1,7 +1,8 @@
 import "./loadEnvironment.js";
-import app from "./server/index.js";
 import mongoose from "mongoose";
 import createDebug from "debug";
+import chalk from "chalk";
+import app from "./server/index.js";
 
 const debug = createDebug("robots-api:root");
 
@@ -14,12 +15,12 @@ if (!mongoDbConnection) {
 }
 
 app.listen(port, () => {
-  debug(`Listening on http://localhost:${port}`);
+  debug(`Listening on ${chalk.blue(`http://localhost:${port}`)}`);
 });
 
 try {
   await mongoose.connect(mongoDbConnection);
   debug("Connected to DataBase");
 } catch (error: unknown) {
-  debug(`Error connecting DataBase: ${(error as Error).message}`);
+  debug(`Error connecting DataBase: ${chalk.red((error as Error).message)}`);
 }
