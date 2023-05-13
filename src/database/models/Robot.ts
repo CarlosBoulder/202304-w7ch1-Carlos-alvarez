@@ -5,7 +5,7 @@ const robotSchema = new Schema({
   speed: Number,
   endurance: Number,
   created: String,
-  img_source: String,
+  imgSource: String,
 });
 
 const Robot = model("Robot", robotSchema, "robots");
