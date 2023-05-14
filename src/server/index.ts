@@ -1,20 +1,27 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
 import robotsRouter from "./routers/robots/robotsRouter.js";
 import { generalError, notFoundError } from "./middlewares/errorMiddlewares.js";
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://202304-w6chwe-luis-caballe-carlos-alv.netlify.app",
+];
+
+const options: cors.CorsOptions = {
+  origin: allowedOrigins,
+};
+
 const app = express();
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  next();
-});
+app.use(cors(options));
+
+app.use(express.json());
 
 app.disable("x-powered-by");
 
 app.use(morgan("dev"));
-
-app.use(express.json());
 
 app.use("/robots", robotsRouter);
 
