@@ -23,5 +23,5 @@ try {
 }
 
 app.listen(port, () => {
-  debug(`Listening on ${chalk.blue(`http://localhost:${port}`)}`);
+  debug(chalk.blue(`Listening on http://localhost:${port}`));
 });
